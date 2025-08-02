@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Instagram Reel Video Downloader</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #fafbfc; padding: 30px; }
+        #response { margin-top: 30px; }
+        input, button { padding: 8px 12px; font-size: 16px; }
+        .urlbox { margin-bottom: 20px; }
+        .result video, .result img { max-width: 320px; margin-top: 12px; display: block; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h2>Instagram Reel से Video Download करें</h2>
+    <form id="reelForm">
+        <div class="urlbox">
+            <input type="text" id="reelUrl" placeholder="Instagram Reel का URL यहाँ डालें" size="45" required>
+            <button type="submit">डाउनलोड करें</button>
+        </div>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('reelForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const url = document.getElementById('reelUrl').value.trim();
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = 'कृपया प्रतीक्षा करें...';
+
+            // API call - यहाँ अपना PHP script लिंक लगाएं
+            fetch('insta.php?url=' + encodeURIComponent(url))
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        let html = '<div class="result">';
+                        if (data.video) {
+                            html += `<strong>वीडियो लिंक:</strong><br>
+                                <a href="${data.video}" target="_blank">डाउनलोड करें</a><br>
+                                <video controls src="${data.video}"></video>`;
+                        }
+                        if (data.thumbnail) {
+                            html += `<strong>थंबनेल:</strong><br>
+                                <img src="${data.thumbnail}" alt="Thumbnail">`;
+                        } else if (data.thumbnail_base64) {
+                            html += `<strong>थंबनेल:</strong><br>
+                                <img src="${data.thumbnail_base64}" alt="Thumbnail">`;
+                        }
+                        html += '</div>';
+                        responseDiv.innerHTML = html;
+                    } else {
+                        responseDiv.innerHTML = `<div class="error">${data.message}</div>`;
+                        if (data.debug_snippet) {
+                            responseDiv.innerHTML += "<br><pre>"+data.debug_snippet+"</pre>";
+                        }
+                    }
+                })
+                .catch(err => {
+                    responseDiv.innerHTML = '<div class="error">कोई तकनीकी समस्या आ गई।</div>';
+                });
+        });
+    </script>
+</body>
+</html>
