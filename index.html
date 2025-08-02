@@ -1,116 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Instagram Reel Video Downloader</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            background: #f7fafd;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            padding: 0;
-            margin: 0;
-        }
-        .container {
-            max-width: 420px;
-            margin: 48px auto 0;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 24px #0001;
-            padding: 36px 28px 40px 28px;
-        }
-        h2 {
-            text-align: center;
-            color: #222a53;
-            margin-bottom: 22px;
-        }
-        #reelForm {
-            display: flex;
-            gap: 0.5em;
-            margin-bottom: 12px;
-        }
-        #reelUrl {
-            flex: 1;
-            font-size: 15px;
-            padding: 10px 14px;
-            border: 1.5px solid #bbe3ff;
-            border-radius: 7px;
-            outline: none;
-            transition: border 0.2s;
-        }
-        #reelUrl:focus {
-            border-color: #3399ff;
-        }
-        button[type="submit"] {
-            padding: 10px 20px;
-            font-size: 15px;
-            border: none;
-            border-radius: 7px;
-            background: #295eff;
-            color: #fff;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-        button[type="submit"]:hover {
-            background: #143dad;
-        }
-        #response {
-            margin-top: 18px;
-        }
-        .result video, .result img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin: 18px auto 4px;
-            display: block;
-        }
-        .result a {
-            color: #295eff;
-            text-decoration: underline;
-            word-break: break-all;
-        }
-        .error {
-            color: #e23c3c;
-            font-weight: 500;
-            margin-top: 14px;
-            background: #ffeaea;
-            border-radius: 7px;
-            padding: 10px;
-            font-size: 15px;
-        }
-        @media (max-width: 550px) {
-            .container { padding: 22px 7px 18px 7px; }
-            #reelForm { flex-direction: column; gap: 1em; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Instagram Reels Downloader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #dc2586 0%, #7a3cff 100%);
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .main-container {
+      background: #fff;
+      margin: 50px auto 0 auto;
+      border-radius: 18px;
+      max-width: 410px;
+      width: 96vw;
+      box-shadow: 0 6px 30px #30015512;
+      padding: 32px 18px 36px 18px;
+      text-align: center;
+    }
+    .heading {
+      font-size: 2.2rem;
+      color: #222;
+      font-weight: bold;
+      margin: 0 0 12px 0;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: #7500c8;
+      margin-bottom: 18px;
+    }
+    .input-container {
+      display: flex;
+      gap: 0.5em;
+      margin: 25px 0 0 0;
+      justify-content: center;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 10px 16px;
+      border: 2px solid #c2a8fc;
+      border-radius: 8px 0 0 8px;
+      outline: none;
+      font-size: 1rem;
+      min-width: 0;
+      background: #fafafa;
+      font-family: inherit;
+    }
+    input[type="text"]:focus {
+      border-color: #6534ee;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: linear-gradient(88deg, #7a3cff 0%, #dc2586 100%);
+      color: #fff;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      outline: none;
+      letter-spacing: 0.5px;
+    }
+    button:hover, button:active {
+      background: linear-gradient(120deg, #dc2586 0%, #7a3cff 100%);
+    }
+    .howto {
+      text-align: left;
+      margin: 38px 0 8px 0;
+      padding: 10px 12px 10px 18px;
+      border-radius: 8px;
+      background: #faf6ff;
+      color: #42216e;
+    }
+    #response {
+      margin: 32px 0 0 0;
+      min-height: 25px;
+    }
+    .result video, .result img {
+      max-width: 96%;
+      border-radius: 10px;
+      margin: 16px auto 9px;
+      display: block;
+    }
+    .result a {
+      color: #7a3cff;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    .error {
+      color: #dc2586;
+      background: #ffe5ff;
+      border-radius: 8px;
+      padding: 12px 12px 11px 12px;
+      margin-top: 14px;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    @media (max-width: 600px) {
+      .main-container { padding:18px 2vw 22px 2vw;}
+      .howto { font-size: 0.96rem; }
+      .heading { font-size: 1.4rem; }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h2>Instagram Reel Video Downloader</h2>
+  <div class="main-container">
+    <div class="heading">Instagram Reels Downloader</div>
+    <div class="subtitle">Download Instagram Reels videos easily!</div>
     <form id="reelForm" autocomplete="off">
+      <div class="input-container">
         <input
-            type="text"
-            id="reelUrl"
-            placeholder="Paste Instagram Reel URL here"
-            required
+          type="text"
+          id="reelUrl"
+          placeholder="Insert Instagram link here"
+          required
         >
         <button type="submit">Download</button>
+      </div>
     </form>
+
+    <div class="howto">
+      <b>How to download reels from Instagram?</b><br>
+      Downloading an Instagram Reels video is a simple process that can be done in just three easy steps:
+      <ol style="margin: 11px 0 3px 19px; padding: 0; color:#361466; font-size:1rem;">
+        <li>Copy the Instagram Reel link you want to download</li>
+        <li>Paste it above and click <b>Download</b></li>
+        <li>Wait for the video and thumbnail to appear, then save them</li>
+      </ol>
+    </div>
+
     <div id="response"></div>
-</div>
-<script>
-document.getElementById('reelForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const url = document.getElementById('reelUrl').value.trim();
-    const responseDiv = document.getElementById('response');
-    if (!url) {
+  </div>
+  <script>
+    document.getElementById('reelForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const url = document.getElementById('reelUrl').value.trim();
+      const responseDiv = document.getElementById('response');
+      if (!url) {
         responseDiv.innerHTML = '<div class="error">Please paste a valid Instagram Reel URL.</div>';
         return;
-    }
-    responseDiv.innerHTML = 'Processing, please wait...';
+      }
+      responseDiv.innerHTML = 'Processing, please wait...';
 
-    // change fetch path if your backend API path is different!
-    fetch('/api/nsta.php?url=' + encodeURIComponent(url))
+      // MAKE SURE: backend API path should match your backend setup!
+      fetch('/api/nsta.php?url=' + encodeURIComponent(url))
         .then(res => res.json())
         .then(data => {
             if (data.status === 'success' && data.video) {
@@ -127,14 +165,14 @@ document.getElementById('reelForm').addEventListener('submit', async function(e)
             } else {
                 responseDiv.innerHTML = `<div class="error">${data.message || 'Failed to fetch reel information.'}</div>`;
                 if (data.debug_snippet) {
-                    responseDiv.innerHTML += `<details style="margin:9px 0;"><summary>Show debug info</summary><pre>${data.debug_snippet}</pre></details>`;
+                  responseDiv.innerHTML += `<details style="margin:11px 0;"><summary>Show debug info</summary><pre>${data.debug_snippet}</pre></details>`;
                 }
             }
         })
         .catch(() => {
-            responseDiv.innerHTML = '<div class="error">Network or server error. Please try again later.</div>';
+          responseDiv.innerHTML = '<div class="error">Network or server error. Please try again later.</div>';
         });
-});
-</script>
+    });
+  </script>
 </body>
 </html>
