@@ -124,16 +124,7 @@
       fetch('/api/nsta.php?url=' + encodeURIComponent(url))
         .then(r => r.json())
         .then(data => {
-          if (data.status === 'success' && data.video) {
-            let html = '<div class="result">';
-            html += `<video controls src="${data.video}"></video>`;
-            html += `<button id="forceDownloadBtn">⬇ Download Video</button>`;
-            if (data.thumbnail) {
-              html += `<br><img src="${data.thumbnail}" alt="Thumbnail">`;
-            } else if (data.thumbnail_base64) {
-              html += `<br><img src="${data.thumbnail_base64}" alt="Thumbnail">`;
-            }
-            html += '</div>';
+          html += '</div>';
             responseDiv.innerHTML = html;
 
             document.getElementById('forceDownloadBtn').addEventListener('click', () => {
