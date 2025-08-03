@@ -63,18 +63,30 @@
     }
     .input-area button:hover { background: #ffb800; }
     #response { margin-top: 32px; }
-    .result video, .result img {
+    .result video {
       max-width: 95vw; max-width: 340px;
       border-radius: 9px;
-      margin: 13px auto 8px;
+      margin: 13px auto 16px;
       display: block;
     }
-    .result a {
-      color: #e7a316;
-      margin-top: 9px;
+    .download-btn {
       display: inline-block;
-      font-weight: 500;
-      text-decoration: underline;
+      font-size: 1.06rem;
+      background: #ffd900;
+      color: #7f5e05;
+      padding: 11px 30px 11px 30px;
+      border-radius: 6px;
+      border: none;
+      font-weight: bold;
+      box-shadow: 0 2px 10px #ffdb9033;
+      margin: 8px 0 0 0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .download-btn:hover, .download-btn:active {
+      background: #ffbc37;
+      color: #222;
     }
     .error {
       color: #c53200;
@@ -118,12 +130,7 @@
           if (data.status === 'success' && data.video) {
             let html = '<div class="result">';
             html += `<video controls src="${data.video}"></video>`;
-            html += `<a href="${data.video}" download>Download Video</a>`;
-            if (data.thumbnail) {
-              html += `<br><img src="${data.thumbnail}" alt="Thumbnail">`;
-            } else if (data.thumbnail_base64) {
-              html += `<br><img src="${data.thumbnail_base64}" alt="Thumbnail">`;
-            }
+            html += `<a href="${data.video}" download class="download-btn">Download</a>`;
             html += '</div>';
             responseDiv.innerHTML = html;
           } else {
